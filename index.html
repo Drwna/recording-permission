@@ -21,6 +21,11 @@
     <button id="record">录音</button>
     <button id="reload">点我刷新页面</button>
   </body>
+  <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+  <script>
+    // VConsole 默认会挂载到 `window.VConsole` 上
+    var vConsole = new window.VConsole()
+  </script>
   <script src="./hzrecorder.js"></script>
   <script>
     var recorder = null
