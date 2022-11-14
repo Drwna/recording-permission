@@ -65,6 +65,7 @@
     })
     $('#record').addEventListener('click', () => {
       navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        alert(JSON.stringify(stream))
         console.log('stream:', stream)
         recorder = new HZRecorder(stream)
         console.log('recorder:', recorder)
