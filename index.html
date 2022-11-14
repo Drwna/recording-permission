@@ -21,7 +21,7 @@
     <button id="record">录音</button>
     <button id="reload">点我刷新页面</button>
   </body>
-  <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.15.0/vconsole.min.js"></script>
   <script>
     // VConsole 默认会挂载到 `window.VConsole` 上
     var vConsole = new window.VConsole()
@@ -43,7 +43,7 @@
       )
     }
     function getPermission() {
-      navigator.permissions.query({ name: 'microphone' }).then((resObj) => {
+      navigator?.permissions?.query({ name: 'microphone' }).then((resObj) => {
         console.log('resObj:', resObj)
         if (resObj.state === 'granted') {
           console.log('已授权')
@@ -54,6 +54,7 @@
           console.log('拒绝授权')
         }
       })
+      console.log('permission')
     }
     getPermission()
     $('#reload').addEventListener('click', () => {
