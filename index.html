@@ -47,9 +47,11 @@
         console.log('resObj:', resObj)
         if (resObj.state === 'granted') {
           console.log('已授权')
+          alert('已授权')
           init()
         } else if (resObj.state === 'prompt') {
           console.log('未授权')
+          alert('未授权')
         } else if (resObj.state === 'denied') {
           console.log('拒绝授权')
         }
