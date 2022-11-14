@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover" />
+    <title>safari浏览器请求录音权限</title>
+    <style>
+      button {
+        width: 50vw;
+        padding: 2vw;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <p id="p"></p>
+    <button id="manual">手动开启相机</button>
+    <button id="record">录音</button>
+    <button id="reload">点我刷新页面</button>
+  </body>
+  <script src="./hzrecorder.js"></script>
+  <script>
+    var recorder = null
+    function $(s) {
+      return document.querySelector(s)
+    }
+    function init() {
+      console.log('初始化')
+      HZRecorder.get(
+        (rec) => {
+          console.log('HZRecorder：', rec)
+          document.getElementById('p').innerHTML = '初始化录音机成功'
+        },
+        { sampleBits: 16, sampleRate: 8000 },
+      )
+    }
+    function getPermission() {
+      navigator.permissions.query({ name: 'microphone' }).then((resObj) => {
+        console.log('resObj:', resObj)
+        if (resObj.state === 'granted') {
+          console.log('已授权')
+          init()
+        } else if (resObj.state === 'prompt') {
+          console.log('未授权')
+        } else if (resObj.state === 'denied') {
+          console.log('拒绝授权')
+        }
+      })
+    }
+    getPermission()
+    $('#reload').addEventListener('click', () => {
+      window.location.reload()
+    })
+    $('#manual').addEventListener('click', () => {
+      init()
+    })
+    $('#record').addEventListener('click', () => {
+      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        console.log('stream:', stream)
+        recorder = new HZRecorder(stream)
+        console.log('recorder:', recorder)
+      })
+    })
+  </script>
+</html>
